@@ -1,0 +1,20 @@
+name: My first workflow
+on:
+  push:                            # lorsque le code est poussé
+    branches: [ main ]             # sur la branche main
+  pull_request:                    # lorsqu'une pull request est faite
+    branches: [ main ]             # sur la branche main
+  
+  workflow_dispatch:               # lancement manuel
+jobs:
+  build:
+    runs-on: ubuntu-latest         # machine virtuelle qui fera tourner mon workflow
+    steps:                         # Ajout des taches
+      - name: Use Node.js          # action (tache) qui indique que je veux installer NodeJS sur la VM qui executera le worflow
+        uses: actions/setup-node@v1
+      - run: npm install           # action qui lance cette cmd pour analyser les pkgs dans mon code source et les install localement sur la VM  
+      - run: gulp build            # action qui lance guilp build qui utilise les pkgs téléchatgés par NPM pour transformer notre code PUG en HTML et copie le résultat dans /dest
+      - uses: actions/upload-artifact@v1     # ation qui va prendre les fichiers générés dans /dest (notre page html et css) les zipper en pkgs nommées MyPackage et upload ce fichier sur le portail GitHub
+        with: 
+          name: MyPackage
+          path: dest                # dossier chargé dans le package
