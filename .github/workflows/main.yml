@@ -14,7 +14,7 @@ jobs:
         uses: actions/setup-node@v1
       - run: npm install           # action qui lance cette cmd pour analyser les pkgs dans mon code source et les install localement sur la VM  
       - run: gulp build            # action qui lance guilp build qui utilise les pkgs téléchatgés par NPM pour transformer notre code PUG en HTML et copie le résultat dans /dest
-      - uses: actions/upload-artifact@v1     # ation qui va prendre les fichiers générés dans /dest (notre page html et css) les zipper en pkgs nommées MyPackage et upload ce fichier sur le portail GitHub
+      - uses: actions/upload-artifact@v3     # ation qui va prendre les fichiers générés dans /dest (notre page html et css) les zipper en pkgs nommées MyPackage et upload ce fichier sur le portail GitHub
         with: 
           name: MyPackage
           path: dest                # dossier chargé dans le package
